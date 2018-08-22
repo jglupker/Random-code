@@ -1,0 +1,21 @@
+#remove special characters from series or columns
+
+from string import digits, ascii_letters, punctuation
+
+#aggregate acceptable characters
+characters = digits + ascii_letters + punctuation
+
+#define function that loops through each string and returns only those characters found in 'characters'
+def clean(char):
+    split_char = []
+    for c in char:
+        if c in characters:
+            split_char.append(c)
+    return ''.join(split_char) 
+
+#call the function by applying it to the entire column
+df['cleaninvestor'] = df.investor_name.apply(clean)
+
+#don't forget to drop the original column that includes special chracters
+df.drop('investor_name', axis=1, inplace=True)
+
