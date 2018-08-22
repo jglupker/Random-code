@@ -1,4 +1,4 @@
-#remove special characters from series or columns
+#remove special characters from series/columns in dataframe
 
 from string import digits, ascii_letters, punctuation
 
