@@ -1,1 +1,27 @@
-#R code here
+For R
+
+library(data.table)
+
+#get a list of all files to load
+files = list.files()
+
+for (file in files){
+    if(!exists('namesdf')){
+    namesdf <- as.data.frame(read.delim2(file, header = FALSE, sep = ','))
+     }
+  if(exists('namesdf')){
+    temp_df <- as.data.frame(read.delim2(file, header = FALSE, sep = ','))
+    namesdf <- rbind.data.frame(namesdf, temp_df)
+    rm(temp_df)
+     }
+}
+
+#remove any duplicates
+namesdf <- namesdf[!duplicated(namesdf),]
+
+#update column names
+colnames(namesdf) <- cbind('state','gender','year','name','count')
+
+summary(namesdf)
+str(namesdf)
+namesdf$year <- factor(namesdf$year)
